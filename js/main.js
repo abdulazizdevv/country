@@ -1,7 +1,8 @@
 let elCards = document.querySelector(".cards");
-let elBody =document.querySelector("body")
+let elBody = document.querySelector("body");
 let elInput = document.querySelector(".js-input");
 let elSelect = document.querySelector(".js-select");
+let elmore = document.querySelector(".more");
 let elTemplate = document.querySelector(".template").content;
 let elFrag = document.createDocumentFragment();
 
@@ -34,6 +35,8 @@ function renderCountries(arr, node) {
     let elPopular = elCard.querySelector(".popular");
     let elCapital = elCard.querySelector(".capital");
     let elRegion = elCard.querySelector(".region");
+    // let newBtn = elCard.querySelector('.more');
+    // newBtn.value = el.name.common;
     elImg.src = el.flags.svg;
     elTitle.innerHTML = el.name.common;
     elPopular.textContent = "Population :" + " " + el.population;
@@ -102,11 +105,37 @@ elBtns.addEventListener("click", () => {
 let newTheme = () => {
   if (window.localStorage.getItem("theme") == "dark") {
     document.body.classList.add("dark");
-    document.elH1.classList.add("white");
+    // document.elH1.classList.add("white");
   } else {
     document.body.classList.remove("dark");
-    document.elH1.classList.remove("white");
+    // document.elH1.classList.remove("white");
   }
 };
 
 newTheme();
+
+elCards.addEventListener("click", (evt) => {
+  console.log(evt.target.matches(".more"));
+  if (evt.target.matches(".more")) {
+    let countryName = evt.path[2].children[1].firstElementChild.textContent;
+    console.dir(countryName);
+    async function countries() {
+      let resolve = await fetch(
+        `https://restcountries.com/v3.1/name/${countryName}`
+      );
+      let data = await resolve.json();
+      console.log(data);
+      if (data.length <= 10) {
+        window.localStorage.setItem("data", JSON.stringify(data));
+      } else {
+        renderCountries(data, elCards);
+      }
+
+      renderCountries(data, elCards);
+    }
+    countries();
+    setTimeout(() => {
+      window.location.replace("./country.html");
+    }, 1000);
+  }
+});

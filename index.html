@@ -48,13 +48,13 @@
             Dark mode
         </button>
     </header>
-    <div class="d-flex justify-content-around m-5">
+    <div class="d-flex justify-content-around m-5 js-form">
         <input type="text" class="shadow js-input w-25 form-control" placeholder="Search...">
         <select class="shadow js-select form-select w-25">
             <option value="all">All</option>
         </select>
     </div>
-    <div class="cards d-flex flex-wrap justify-content-around gap-5 ">
+    <div class="cards js-list d-flex flex-wrap justify-content-around gap-5 ">
         <img class="loading" src="./images/spinner.svg" alt="loading">
     </div>
 
@@ -68,9 +68,10 @@
                     content.</p>
             </div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item popular"></li>
-                <li class="list-group-item capital"></li>
-                <li class="list-group-item region"></li>
+                <p class="list-group-item popular"></p>
+                <p class="list-group-item capital"></p>
+                <p class="list-group-item region"></p>
+                <button class="more btn btn-primary w-50 m-3">More...</button>
             </ul>
         </div>
     </template>
